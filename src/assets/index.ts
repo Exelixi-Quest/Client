@@ -1,0 +1,10 @@
+export {default as logo} from "./exelixi-logo.png";
+export {default as transparentLogo} from "./exelixi-log-transparent.png";
+export {default as testimonial1} from "./testimonial/testimonial-1.jpeg";
+export {default as testimonial2} from "./testimonial/testimonial-2.jpeg";
+export {default as testimonial3} from "./testimonial/testimonial-3.jpeg";
+export {default as worldMap} from "./earth.png";
+export {default as dev1} from "./dev1.jpg";
+export {default as dev2} from "./dev2.jpeg";
+export {default as dev3} from "./dev3.jpeg";
+export {default as dahProff} from "./dashprof.jpg";

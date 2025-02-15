@@ -1,0 +1,229 @@
+@use "./Variables.scss" as *;
+@use "sass:color";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.el-landing-layout {
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  z-index: 1;
+}
+
+// Button styles
+.button {
+  width: 100%;
+  background-color: $primary-color;
+  margin-bottom: 20px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: color.scale($primary-color, $lightness: -10%);
+  }
+}
+
+// Login
+.el-login {
+  background-color: #F5EFE6;
+}
+
+// Hero Section
+.el-hero-section {
+    height: calc(100vh - 100px);
+    text-align: center;
+    padding: 70px 20px;
+    background: {
+        color: black;
+        image: url("https://assets-global.website-files.com/65159e844f8f08a72cefa2aa/65159e844f8f08a72cefa419_footer%20bg%20latest.svg");
+        size: cover;
+        position: -100px 20%;
+        z-index: 3;
+      }
+  
+    @media (max-width: $mobile-breakpoint) {
+      height: auto;
+      padding-top: 40px;
+    }
+  }
+  
+  .el-hero-header {
+    margin-bottom: 24px;
+  
+    h1 {
+      font-size: 60px;
+      letter-spacing: -1.2px;
+      line-height: 107%;
+  
+      @media (max-width: $mobile-breakpoint) {
+        font-size: 40px;
+      }
+  
+      @media (max-width: $small-mobile-breakpoint) {
+        font-size: 32px;
+      }
+    }
+  }
+  
+  .el-hero-sub-header {
+    width: 100%;
+    max-width: 666px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 150%;
+    margin: 20px auto;
+  
+    @media (max-width: $mobile-breakpoint) {
+      font-size: 16px;
+      max-width: 100%;
+    }
+  }
+  
+  .el-hero-meta-data {
+    grid-column-gap: 24px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 156%;
+  
+    @media (max-width: $mobile-breakpoint) {
+      flex-direction: column;
+      gap: 20px;
+      font-size: 16px;
+    }
+  }
+  
+  // Meta Data Spans
+  .meta-data {
+    &-span-1, &-span-2 {
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-family: Spacegrotesk, sans-serif;
+      font-weight: 700;
+    }
+  
+    &-span-1 {
+      background-image: linear-gradient(#fee3b2, #fdbec9);
+    }
+  
+    &-span-2 {
+      background-image: linear-gradient(#fda8d8, #fb7cf4);
+    }
+  
+    &-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      > * {
+        margin-left: 12px;
+      }
+  
+      @media (max-width: $mobile-breakpoint) {
+        justify-content: center;
+      }
+    }
+  }
+  
+  .fa-money-bill {
+    color: #fff;
+    height: 18px;
+    width: 18px;
+  }
+  
+  .india {
+    transform: translateY(3px);
+  }
+  
+  // Hero Button
+  .el-hero-button {
+    z-index: 3;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 1px;
+    transition: box-shadow 0.7s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    width: 250px;
+    height: 60px;
+    margin: 2rem auto;
+  
+    &-text {
+      z-index: 3;
+      color: var(--white);
+      letter-spacing: -0.36px;
+      text-shadow: 0 0 rgba(255, 255, 255, 0.13);
+      font-weight: 600;
+      position: relative;
+      font-size: 18px;
+      line-height: 156%;
+    }
+  }
+  
+  .button-black-overlay {
+    z-index: 2;
+    background-color: var(--black);
+    -webkit-backdrop-filter: blur(100px);
+    backdrop-filter: blur(100px);
+    border-radius: 8px;
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+  }
+  
+  .colored-button-gradient-layer {
+    transform: translate3d(-56.2099%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform-style: preserve-3d;
+    will-change: transform;
+    z-index: 1;
+    width: 400%;
+    background-image: linear-gradient(
+      135deg,
+      #986eeb,
+      #fd68b3 11.11%,
+      #fdb786 22.22%,
+      #fdb786 33.33%,
+      #fdb786 44.44%,
+      #986eeb 55.55%,
+      #fd68b3 66.66%,
+      #fdb786 77.77%,
+      #fdb786 88.88%,
+      #fdb786
+    );
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+  }
+/* Impossible Section */
+  .impossible-section {
+    background-color: $container-background-color;
+    color: black;
+    padding: 20px;
+    &-title{
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 156%;
+        text-align: center;
+        margin: 20px 0;
+    }
+  }
+/* Impossible Section End */
+
