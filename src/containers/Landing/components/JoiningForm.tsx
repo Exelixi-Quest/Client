@@ -1,16 +1,26 @@
-import React, { useState } from "react";
-import { Calendar, Phone, Mail, User, Briefcase, GraduationCap, Heart } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  Calendar,
+  Phone,
+  Mail,
+  User,
+  Briefcase,
+  GraduationCap,
+  Heart,
+} from "lucide-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useApi } from '../../../hooks/useApi'
-import { API_ENDPOINTS } from '../../../utils/apiEndpoints';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useApi } from "../../../hooks/useApi";
+import { API_ENDPOINTS } from "../../../utils/apiEndpoints";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
   lastName: Yup.string().required("Last name is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   dateOfBirth: Yup.date().required("Date of birth is required"),
   profile: Yup.string().required("Profile selection is required"),
   mobileNumber: Yup.string().required("Mobile number is required"),
@@ -23,17 +33,37 @@ interface RegisterResponse {
   message: string;
 }
 
-// Add custom styles for the toast notifications
-const customToastStyle = {
-  fontSize: '0.875rem', // Smaller font size
-  padding: '10px 15px', // Adjust padding for a sleeker look
-  borderRadius: '5px', // Rounded corners
+// Modal component
+const Modal: React.FC<{ message: string; onClose: () => void }> = ({
+  message,
+  onClose,
+}) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 backdrop-blur-sm z-999">
+      <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+        <p className="text-white text-lg">{message}</p>
+        <div className="flex justify-center">
+          <button
+            onClick={onClose}
+            className="mt-4 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export const JoiningForm: React.FC = () => {
   const [skills, setSkills] = useState<string[]>([]);
-  const [newSkill, setNewSkill] = useState('');
-  const { postData, error,success} = useApi<RegisterResponse>();
+  const [newSkill, setNewSkill] = useState("");
+  const { postData, error, success, loading } = useApi<RegisterResponse>();
+  const [modalMessage, setModalMessage] = useState<string | null>(null);
+
+  const handleCloseModal = () => {
+    setModalMessage(null);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -53,24 +83,28 @@ export const JoiningForm: React.FC = () => {
           ...values,
           skills,
         });
-        if (success) {
-          toast.success('Registration successful!', { style: customToastStyle }); // Apply custom style
-          // Handle success (e.g., redirect)
-        } else {
-          toast.error('Registration failed: ' + (error || 'An error occurred'), { style: customToastStyle }); // Apply custom style
-        }
       } catch (err) {
-        console.log(error, "error");
-        toast.error('Registration failed: ' + (err instanceof Error ? err.message : 'An error occurred'), { style: customToastStyle }); // Apply custom style
-        console.error('Registration failed:', err);
+        setModalMessage(
+          "Registration failed: " +
+            (err instanceof Error ? err.message : "An error occurred")
+        ); // Show modal with error message
       }
     },
   });
 
+  useEffect(() => {
+    if (success) {
+      setModalMessage("Registration successful!"); // Show modal with success message
+    }
+    if (error) {
+      setModalMessage("Registration failed: " + (error || "An error occurred")); // Show modal with error message
+    }
+  }, [success, error]);
+
   const handleAddSkill = () => {
     if (newSkill.trim()) {
       setSkills([...skills, newSkill.trim()]);
-      setNewSkill('');
+      setNewSkill("");
     }
   };
 
@@ -80,19 +114,30 @@ export const JoiningForm: React.FC = () => {
 
   return (
     <section className="py-20 bg-black">
+      {/* Modal for messages */}
+      {modalMessage && (
+        <Modal message={modalMessage} onClose={handleCloseModal} />
+      )}
       <ToastContainer />
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">EXELIXI</span> Today
+              Join{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                EXELIXI
+              </span>{" "}
+              Today
             </h2>
             <p className="text-gray-400 text-lg">
               Start your journey towards a successful tech career
             </p>
           </div>
 
-          <form onSubmit={formik.handleSubmit} className="space-y-8 bg-gray-900/50 p-6 md:p-8 rounded-2xl border border-gray-800">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="space-y-8 bg-gray-900/50 p-6 md:p-8 rounded-2xl border border-gray-800"
+          >
             {/* Name Fields */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -102,14 +147,18 @@ export const JoiningForm: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  {...formik.getFieldProps('firstName')}
+                  {...formik.getFieldProps("firstName")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.firstName && formik.errors.firstName ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.firstName && formik.errors.firstName
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
-                  placeholder="John"
+                  placeholder=""
                 />
                 {formik.touched.firstName && formik.errors.firstName && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.firstName}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.firstName}
+                  </div>
                 )}
               </div>
               <div className="space-y-2">
@@ -119,14 +168,18 @@ export const JoiningForm: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  {...formik.getFieldProps('lastName')}
+                  {...formik.getFieldProps("lastName")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.lastName && formik.errors.lastName ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.lastName && formik.errors.lastName
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
-                  placeholder="Doe"
+                  placeholder=""
                 />
                 {formik.touched.lastName && formik.errors.lastName && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.lastName}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.lastName}
+                  </div>
                 )}
               </div>
             </div>
@@ -140,14 +193,18 @@ export const JoiningForm: React.FC = () => {
                 </label>
                 <input
                   type="email"
-                  {...formik.getFieldProps('email')}
+                  {...formik.getFieldProps("email")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.email && formik.errors.email
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
-                  placeholder="john@example.com"
+                  placeholder=""
                 />
                 {formik.touched.email && formik.errors.email && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.email}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.email}
+                  </div>
                 )}
               </div>
               <div className="space-y-2">
@@ -157,13 +214,17 @@ export const JoiningForm: React.FC = () => {
                 </label>
                 <input
                   type="date"
-                  {...formik.getFieldProps('dateOfBirth')}
+                  {...formik.getFieldProps("dateOfBirth")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.dateOfBirth && formik.errors.dateOfBirth ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.dateOfBirth && formik.errors.dateOfBirth
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
                 />
                 {formik.touched.dateOfBirth && formik.errors.dateOfBirth && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.dateOfBirth}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.dateOfBirth}
+                  </div>
                 )}
               </div>
             </div>
@@ -173,9 +234,11 @@ export const JoiningForm: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-sm text-gray-400">Profile</label>
                 <select
-                  {...formik.getFieldProps('profile')}
+                  {...formik.getFieldProps("profile")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.profile && formik.errors.profile ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.profile && formik.errors.profile
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
                 >
                   <option value="">Select Profile</option>
@@ -183,7 +246,9 @@ export const JoiningForm: React.FC = () => {
                   <option value="apigee">Apigee</option>
                 </select>
                 {formik.touched.profile && formik.errors.profile && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.profile}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.profile}
+                  </div>
                 )}
               </div>
               <div className="space-y-2">
@@ -193,14 +258,18 @@ export const JoiningForm: React.FC = () => {
                 </label>
                 <input
                   type="tel"
-                  {...formik.getFieldProps('mobileNumber')}
+                  {...formik.getFieldProps("mobileNumber")}
                   className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                    formik.touched.mobileNumber && formik.errors.mobileNumber ? 'border-red-500' : 'border-gray-700'
+                    formik.touched.mobileNumber && formik.errors.mobileNumber
+                      ? "border-red-500"
+                      : "border-gray-700"
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
-                  placeholder="+91 98765 43210"
+                  placeholder=""
                 />
                 {formik.touched.mobileNumber && formik.errors.mobileNumber && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.mobileNumber}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.mobileNumber}
+                  </div>
                 )}
               </div>
             </div>
@@ -212,15 +281,20 @@ export const JoiningForm: React.FC = () => {
                 Work Experience
               </label>
               <textarea
-                {...formik.getFieldProps('workExperience')}
+                {...formik.getFieldProps("workExperience")}
                 className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                  formik.touched.workExperience && formik.errors.workExperience ? 'border-red-500' : 'border-gray-700'
+                  formik.touched.workExperience && formik.errors.workExperience
+                    ? "border-red-500"
+                    : "border-gray-700"
                 } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white h-24`}
                 placeholder="Tell us about your work experience..."
               />
-              {formik.touched.workExperience && formik.errors.workExperience && (
-                <div className="text-red-500 text-sm mt-1">{formik.errors.workExperience}</div>
-              )}
+              {formik.touched.workExperience &&
+                formik.errors.workExperience && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {formik.errors.workExperience}
+                  </div>
+                )}
             </div>
 
             {/* Education */}
@@ -230,14 +304,18 @@ export const JoiningForm: React.FC = () => {
                 Education
               </label>
               <textarea
-                {...formik.getFieldProps('education')}
+                {...formik.getFieldProps("education")}
                 className={`w-full px-4 py-2.5 bg-gray-800 border ${
-                  formik.touched.education && formik.errors.education ? 'border-red-500' : 'border-gray-700'
+                  formik.touched.education && formik.errors.education
+                    ? "border-red-500"
+                    : "border-gray-700"
                 } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white h-24`}
                 placeholder="Tell us about your educational background..."
               />
               {formik.touched.education && formik.errors.education && (
-                <div className="text-red-500 text-sm mt-1">{formik.errors.education}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {formik.errors.education}
+                </div>
               )}
             </div>
 
@@ -270,7 +348,7 @@ export const JoiningForm: React.FC = () => {
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
                   className="flex-1 px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                  placeholder="Type your skill"
+                  placeholder="Type your skill and click [+] to add"
                 />
                 <button
                   type="button"
@@ -284,13 +362,14 @@ export const JoiningForm: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium hover:opacity-90 transition-opacity"
+              className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-400 to-pink-400 text-black font-bold hover:opacity-90 transition-opacity ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+              disabled={loading}
             >
-              Submit Application
+              {loading ? "Submitting..." : "Join Exelixi Today"}
             </button>
           </form>
         </div>
       </div>
     </section>
   );
-}; 
+};
