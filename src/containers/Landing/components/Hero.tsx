@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Hero: React.FC = () => {
   return (
-    <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-[url('https://assets-global.website-files.com/65159e844f8f08a72cefa2aa/65159e844f8f08a72cefa419_footer%20bg%20latest.svg')] bg-cover bg-center bg-no-repeat">
+    <section className="pt-16 pb-16 md:pt-40 md:pb-24 bg-cover bg-[url('https://assets-global.website-files.com/65159e844f8f08a72cefa2aa/65159e844f8f08a72cefa419_footer%20bg%20latest.svg')] bg-[left_40%_top_20%] md:bg-auto md:bg-[left_65%_top_15%] bg-no-repeat">
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-6xl font-bold max-w-5xl mx-auto leading-tight">
           Find tech jobs with companies{" "}

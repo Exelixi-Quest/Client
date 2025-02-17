@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div ref={menuRef} className="p-5 flex justify-between items-center h-[100px] text-white border-b border-white/20 bg-[#010101] md:h-[70px]">
+    <div ref={menuRef} className="sticky top-0 p-5 flex justify-between items-center h-[100px] text-white border-b border-white/20 bg-[#010101]/50 backdrop-blur-md z-900 md:h-[70px]">
       <nav className="flex items-center w-full justify-between md:w-auto">
         <img
           className="w-full max-w-[150px] cursor-pointer border-r border-white/20 pr-5 md:border-none md:pr-0"

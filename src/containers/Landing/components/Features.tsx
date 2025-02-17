@@ -3,7 +3,7 @@ import { Code2, GraduationCap, Building2, Wallet } from "lucide-react";
 
 export const Features: React.FC = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section className="py-20 bg-gradient-to-b from-black to-[#0b0b0b]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">

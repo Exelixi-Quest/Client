@@ -76,7 +76,7 @@ export const BenefitsSection: React.FC = () => {
             </h3>
             <p className="text-gray-300 text-lg">
               Local recognition does not cut it anymore. Get vetted and join a
-              curated list of top softwareengineers from around the world.
+              curated list of top software engineers from around the world.
             </p>
           </div>
         </div>

@@ -48,13 +48,12 @@ export const ProfileSection: React.FC = () => {
               <img
                 src={dahProff}
                 alt="Developer profile"
-                className="rounded-lg sm:w-[100px] sm:h-[100px] w-[80px] h-[80px]"
+                className="rounded-lg w-auto h-[100px] max-w-[100px] max-h-[100px]"
               />
               <div className="space-y-2">
-                <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
+                <h3 className="text-xl font-semibold">Mohit Acharya <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
                   Frontend Developer
-                </span>
-                <h3 className="text-xl font-semibold">Mohit Acharya</h3>
+                </span></h3>
                 <div className="flex items-center gap-2 text-gray-400">
                   <Globe className="w-4 h-4" />
                   <span className="text-sm">Speaks Hindi, English, Odia</span>
@@ -92,15 +91,15 @@ export const ProfileSection: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-2">
               <button className="flex-1 h-12 sm:h-10 flex items-center justify-center gap-2 rounded-md border border-gray-700 hover:bg-gray-800">
-                <FileText className="w-4 h-4" />
+                <span className="block sm:hidden">Portfolio</span>
                 <span className="hidden sm:inline">Portfolio</span>
               </button>
               <button className="flex-1 h-12 sm:h-10 flex items-center justify-center gap-2 rounded-md border border-gray-700 hover:bg-gray-800">
-                <Code2 className="w-4 h-4" />
+                <span className="block sm:hidden">Skills</span>
                 <span className="hidden sm:inline">Skills</span>
               </button>
-              <button className="flex-1 h-12 sm:h-10 flex items-center justify-center gap-2 rounded-md bg-gray-800 hover:bg-gray-700">
-                <Briefcase className="w-4 h-4" />
+              <button className="flex-1 h-12 sm:h-10 flex items-center justify-center gap-2 rounded-md border border-gray-700 hover:bg-gray-700">
+                <span className="block sm:hidden">Work Experience</span>
                 <span className="hidden sm:inline">Work Experience</span>
               </button>
             </div>

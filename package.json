@@ -4,18 +4,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start:dev": "vite --port 3000",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start:dev": "vite --mode development",
+    "start:prod": "vite --mode production",
+    "build:dev": "tsc && vite build --mode development",
+    "build:prod": "tsc && vite build --mode production",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
+    "formik": "^2.4.6",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
-    "sass": "^1.84.0"
+    "react-toastify": "^11.0.3",
+    "sass": "^1.84.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
