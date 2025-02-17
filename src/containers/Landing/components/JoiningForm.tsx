@@ -101,6 +101,10 @@ export const JoiningForm: React.FC = () => {
     }
   }, [success, error]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top of the page when the component mounts
+  }, []);
+
   const handleAddSkill = () => {
     if (newSkill.trim()) {
       setSkills([...skills, newSkill.trim()]);
