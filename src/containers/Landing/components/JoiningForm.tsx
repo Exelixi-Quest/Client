@@ -362,7 +362,7 @@ export const JoiningForm: React.FC = () => {
 
             <button
               type="submit"
-              className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-400 to-pink-400 text-black font-bold hover:opacity-90 transition-opacity ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-local rounded-md p-2 hover:opacity-90 transition-opacity ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
               disabled={loading}
             >
               {loading ? "Submitting..." : "Join Exelixi Today"}

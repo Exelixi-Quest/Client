@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div ref={menuRef} className="sticky top-0 p-5 flex justify-between items-center h-[100px] text-white border-b border-white/20 bg-[#010101]/50 backdrop-blur-md z-900 md:h-[70px]">
+    <div ref={menuRef} className="sticky top-0 p-6 flex justify-between items-center h-[100px] text-white border-b border-white/20 bg-[#010101]/50 backdrop-blur-md z-900 md:h-[70px]">
       <nav className="flex items-center w-full justify-between md:w-auto">
         <img
           className="w-full max-w-[150px] cursor-pointer border-r border-white/20 pr-5 md:border-none md:pr-0"
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
         } md:relative md:top-0 md:flex md:flex-row md:border-none md:bg-transparent md:py-0 md:px-0 md:shadow-none md:space-y-0`}
       >
         <li className="inline-block text-base cursor-pointer md:my-2.5 md:mx-4">
-          <Link to="#" className="hover:text-gray-200">
+          <Link to="/sign-in" className="hover:text-gray-200">
             Sign In
           </Link>
         </li>

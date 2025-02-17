@@ -5,6 +5,7 @@ import { JoiningForm } from './containers/Landing/components/JoiningForm';
 // Lazy load components for better performance
 const Landing = lazy(() => import('./containers/Landing'));
 const LandingLayout = lazy(() => import('./containers/Landing/layout'));
+const SignIn = lazy(() => import('./containers/Authentication/index'));
 
 export const landingRoutes: RouteObject[] = [
   {
@@ -17,6 +18,9 @@ export const landingRoutes: RouteObject[] = [
       },{
         path: '/join',
         element: <JoiningForm />
+      },{
+        path: '/sign-in',
+        element: <SignIn />
       },{
         path: '*',
         element: <Landing />
