@@ -52,7 +52,7 @@ export const ProfileSection: React.FC = () => {
               />
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold">Mohit Acharya <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
-                  Frontend Developer
+                  DevOps Engineer
                 </span></h3>
                 <div className="flex items-center gap-2 text-gray-400">
                   <Globe className="w-4 h-4" />
@@ -65,12 +65,11 @@ export const ProfileSection: React.FC = () => {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm sm:text-base">Cuttack, Odisha</span>
+                  <span className="text-sm sm:text-base">Pune, Maharastra</span>
                 </div>
                 <select className="bg-gray-800 rounded-md px-3 py-1 text-sm border border-gray-700 w-full sm:w-auto">
-                  <option>Odisha</option>
-                  <option>Bangalore</option>
                   <option>Pune</option>
+                  <option>Bangalore</option>
                 </select>
               </div>
 

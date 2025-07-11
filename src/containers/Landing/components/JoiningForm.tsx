@@ -246,7 +246,7 @@ export const JoiningForm: React.FC = () => {
                   } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white`}
                 >
                   <option value="">Select Profile</option>
-                  <option value="web">Web Development</option>
+                  <option value="web">DevOps</option>
                   <option value="apigee">Apigee</option>
                 </select>
                 {formik.touched.profile && formik.errors.profile && (

@@ -13,20 +13,20 @@ export const LiveSessions: React.FC = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <MacWindow title="Web Development">
+          <MacWindow title="DevOps">
             <pre className="text-sm">
               <code>{`
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello, Exelixi!</h1>
-      <p>Welcome to our Web Dev session.</p>
-    </div>
-  );
-}
-
-export default App;
-              `}</code>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: exelixi-pod
+spec:
+  containers:
+    - name: exelixi-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+    `}</code>
             </pre>
           </MacWindow>
           <MacWindow title="Apigee">
